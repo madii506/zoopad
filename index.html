@@ -1,0 +1,657 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ZOOPAD</title>
+<meta name="description" content="Launch a coin for any animal. Its creator fees go to a sanctuary's public fund wallet, and every donation is posted with its receipt. Every case on the site is sourced.">
+<meta name="theme-color" content="#0F3D2C">
+<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="64x64" href="/img/favicon-64.png">
+<link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="ZOOPAD">
+<meta property="og:title" content="ZOOPAD · launch a coin for any animal">
+<meta property="og:description" content="Its fees go to a sanctuary. Every case sourced, every fund wallet public, every donation posted with its receipt.">
+<meta property="og:url" content="__SITE__/">
+<meta property="og:image" content="__SITE__/img/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ZOOPAD · launch a coin for any animal">
+<meta name="twitter:description" content="Its fees go to a sanctuary. Every case sourced, every fund wallet public, every donation posted with its receipt.">
+<meta name="twitter:image" content="__SITE__/img/og.png">
+<link rel="preload" href="/fonts/fraunces-900.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/inter-500.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face{font-family:"Fraunces";src:url(/fonts/fraunces-600.woff2) format("woff2");font-weight:500 700;font-display:swap}
+@font-face{font-family:"Fraunces";src:url(/fonts/fraunces-900.woff2) format("woff2");font-weight:800 900;font-display:swap}
+@font-face{font-family:"Inter";src:url(/fonts/inter-500.woff2) format("woff2");font-weight:400 600;font-display:swap}
+@font-face{font-family:"Inter";src:url(/fonts/inter-700.woff2) format("woff2");font-weight:700 800;font-display:swap}
+:root{--bg:#0F3D2C;--bg2:#0C3425;--card:#124431;--card2:#154c37;--cream:#F6ECD8;--mute:rgba(246,236,216,.7);--dim:rgba(246,236,216,.46);--line:rgba(246,236,216,.12);--line2:rgba(246,236,216,.22);--gold:#F2B544;--gold2:#FFC75F;--err:#FF9C8A;--ok:#7FE0A8}
+*{box-sizing:border-box;margin:0;padding:0}
+[hidden]{display:none!important}
+html{scroll-behavior:smooth;overflow-x:hidden;-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--cream);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;font-size:16px;line-height:1.55;overflow-x:clip;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer;border:0;background:none}
+img{display:block;max-width:100%}
+.wrap{width:100%;max-width:1200px;margin:0 auto;padding:0 28px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:6px}
+.serif{font-family:Fraunces,Georgia,serif}
+
+/* nav: empty / centred links / empty */
+nav.top{position:sticky;top:0;z-index:40;background:rgba(15,61,44,.86);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+nav.top .in{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;height:58px}
+nav.top .links{display:flex;gap:6px;font-size:14px;font-weight:700;color:var(--mute);overflow-x:auto;scrollbar-width:none;max-width:calc(100vw - 32px)}
+nav.top .links::-webkit-scrollbar{display:none}
+nav.top .links a{position:relative;padding:18px 10px;white-space:nowrap;text-decoration:none;transition:color .2s}
+nav.top .links a:hover,nav.top .links a.on{color:var(--cream)}
+nav.top .links a.on::after{content:"";position:absolute;left:50%;bottom:10px;width:16px;height:3px;border-radius:2px;background:var(--gold);transform:translateX(-50%)}
+
+/* hero */
+.hero{position:relative;overflow:hidden;border-bottom:1px solid var(--line)}
+#trail{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.hero .wrap{position:relative;min-height:min(760px,calc(100svh - 58px));display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding-top:72px;padding-bottom:80px}
+.lock{display:flex;align-items:center;gap:clamp(14px,2vw,26px)}
+.lock svg{width:clamp(66px,9vw,118px);height:auto;fill:var(--gold);flex:none;transform:translateY(-4%)}
+.wm{font-family:Fraunces,Georgia,serif;font-weight:900;font-size:clamp(76px,12.5vw,158px);line-height:.92;letter-spacing:-.025em}
+.lede{margin-top:26px;font-size:clamp(19px,2.2vw,25px);color:var(--mute);max-width:34ch;line-height:1.35}
+.lede b{display:block;color:var(--cream);font-weight:600}
+.cta{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-top:36px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:50px;padding:0 22px;border-radius:12px;font-weight:700;font-size:16px;text-decoration:none;transition:transform .15s,background .2s,border-color .2s,color .2s,opacity .2s;white-space:nowrap}
+.btn:active{transform:scale(.97)}
+.btn.gold{background:var(--gold);color:#16301f}
+.btn.gold:hover{background:var(--gold2)}
+.btn.line{box-shadow:inset 0 0 0 1px var(--line2);color:var(--cream)}
+.btn.line:hover{background:rgba(246,236,216,.06)}
+.btn.sm{min-height:42px;padding:0 16px;font-size:14px;border-radius:10px}
+.btn[disabled]{opacity:.45;cursor:not-allowed}
+.btn svg{width:18px;height:18px;flex:none}
+.proof{display:flex;flex-wrap:wrap;justify-content:center;gap:10px 22px;margin-top:30px;color:var(--dim);font-size:14px}
+.proof span{display:inline-flex;align-items:center;gap:8px}
+.proof i{width:7px;height:7px;border-radius:50%;background:var(--gold)}
+.carow{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:26px}
+.carow .ca{display:inline-flex;align-items:center;gap:10px;min-height:42px;padding:0 6px 0 16px;border-radius:999px;box-shadow:inset 0 0 0 1px var(--line2);font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px;color:var(--mute)}
+.carow .ca button{min-height:32px;padding:0 12px;border-radius:999px;background:var(--cream);color:#16301f;font-family:Inter,sans-serif;font-size:12px;font-weight:800}
+
+/* bands */
+section.band{border-bottom:1px solid var(--line);padding:100px 0;scroll-margin-top:58px}
+section.band.alt{background:var(--bg2)}
+.eyebrow{display:flex;align-items:center;gap:10px;font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--mute)}
+.eyebrow b{color:var(--gold);font-weight:800}
+.eyebrow .st{margin-left:auto;letter-spacing:.1em}
+h2{margin-top:14px;font-family:Fraunces,Georgia,serif;font-weight:900;font-size:clamp(34px,4.6vw,56px);line-height:1.04;letter-spacing:-.02em;max-width:22ch}
+.sub{margin-top:14px;color:var(--mute);font-size:17px;max-width:64ch}
+
+/* chips */
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:30px}
+.chips button{min-height:40px;padding:0 15px;border-radius:999px;box-shadow:inset 0 0 0 1px var(--line2);font-weight:700;font-size:14px;color:var(--mute);transition:background .2s,color .2s}
+.chips button:hover{color:var(--cream)}
+.chips button.on{background:var(--cream);color:#16301f;box-shadow:none}
+
+/* 01 remembered */
+.cases{margin-top:28px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.case{position:relative;display:flex;flex-direction:column;padding:26px 24px 22px;border-radius:18px;background:var(--card);box-shadow:inset 0 0 0 1px var(--line);transition:transform .25s,box-shadow .25s}
+.case:hover{transform:translateY(-3px);box-shadow:inset 0 0 0 1px var(--line2)}
+.case.flash{animation:flash 1.4s ease}
+@keyframes flash{0%,100%{box-shadow:inset 0 0 0 1px var(--line)}20%{box-shadow:inset 0 0 0 2px var(--gold)}}
+.case .top{display:flex;justify-content:space-between;gap:10px;font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase}
+.case .sp{color:var(--gold)}
+.case .dt{color:var(--dim)}
+.case h3{margin-top:16px;font-family:Fraunces,Georgia,serif;font-weight:700;font-size:30px;line-height:1.1;letter-spacing:-.01em}
+.case .pl{margin-top:4px;color:var(--mute);font-size:14px}
+.case p.sum{margin-top:14px;color:#e9dfcb;font-size:15px;line-height:1.6}
+.case .src{margin-top:14px;display:flex;flex-wrap:wrap;gap:6px 14px;font-size:13px;color:var(--dim)}
+.case .src a{color:var(--mute);text-decoration:underline;text-decoration-color:var(--line2);text-underline-offset:3px}
+.case .src a:hover{color:var(--cream);text-decoration-color:var(--cream)}
+.case .acts{margin-top:auto;padding-top:20px;display:flex;flex-wrap:wrap;gap:8px}
+.case .pawm{position:absolute;right:18px;top:52px;width:46px;fill:rgba(242,181,68,.12)}
+
+/* 02 sanctuaries */
+.sancs{margin-top:40px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.sanc{display:flex;flex-direction:column;padding:26px 24px 22px;border-radius:18px;background:var(--card);box-shadow:inset 0 0 0 1px var(--line)}
+.sanc.flash{animation:flash 1.4s ease}
+.sanc .tag{align-self:flex-start;height:28px;padding:0 11px;border-radius:999px;background:rgba(242,181,68,.14);color:var(--gold);font-size:12px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;display:inline-flex;align-items:center}
+.sanc h3{margin-top:14px;font-family:Fraunces,Georgia,serif;font-weight:700;font-size:26px;line-height:1.15}
+.sanc .mis{margin-top:10px;color:#e9dfcb;font-size:15px}
+.facts{margin-top:16px;border-top:1px solid var(--line)}
+.facts div{display:flex;justify-content:space-between;gap:14px;padding:10px 0;border-bottom:1px solid var(--line);font-size:14px}
+.facts dt{color:var(--dim)}
+.facts dd{text-align:right;color:var(--cream)}
+.facts a{color:var(--cream);text-decoration:underline;text-decoration-color:var(--line2);text-underline-offset:3px}
+.yes{color:var(--ok)!important}
+.no{color:var(--mute)!important}
+.sanc .acts{margin-top:auto;padding-top:18px;display:flex;flex-wrap:wrap;gap:8px}
+.note{margin-top:22px;color:var(--dim);font-size:14px;max-width:80ch}
+
+/* 03 launch */
+.launch{margin-top:44px;display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:48px;align-items:start}
+.fld{display:block;margin-bottom:18px}
+.fld>span{display:flex;justify-content:space-between;font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);margin-bottom:8px}
+.fld>span em{font-style:normal;letter-spacing:0;text-transform:none;font-weight:500;color:var(--dim)}
+.inp{width:100%;min-height:50px;padding:12px 14px;border-radius:12px;border:0;box-shadow:inset 0 0 0 1px var(--line2);background:rgba(0,0,0,.14);font-size:16px;outline:none;transition:box-shadow .2s}
+.inp:focus{box-shadow:inset 0 0 0 1.5px var(--gold)}
+.inp::placeholder{color:rgba(246,236,216,.34)}
+textarea.inp{min-height:110px;resize:vertical;line-height:1.5}
+select.inp{appearance:none;background-image:linear-gradient(45deg,transparent 50%,var(--mute) 50%),linear-gradient(135deg,var(--mute) 50%,transparent 50%);background-position:calc(100% - 20px) 50%,calc(100% - 14px) 50%;background-size:6px 6px;background-repeat:no-repeat;padding-right:40px}
+select.inp option{background:#0F3D2C;color:var(--cream)}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.drop{display:flex;align-items:center;gap:14px;min-height:76px;padding:12px 14px;border-radius:12px;box-shadow:inset 0 0 0 1px var(--line2);background:rgba(0,0,0,.14);cursor:pointer;transition:box-shadow .2s}
+.drop:hover,.drop.over{box-shadow:inset 0 0 0 1.5px var(--gold)}
+.drop .th{width:52px;height:52px;border-radius:10px;background:rgba(246,236,216,.08) center/cover no-repeat;flex:none;display:grid;place-items:center}
+.drop .th svg{width:26px;fill:var(--dim)}
+.drop b{display:block;font-size:15px}
+.drop small{color:var(--dim)}
+.prev{position:sticky;top:90px}
+.coin{border-radius:20px;background:var(--card);box-shadow:inset 0 0 0 1px var(--line2);overflow:hidden}
+.coin .hd{display:flex;align-items:center;gap:18px;padding:22px 22px 0}
+.coin .img{width:120px;height:120px;flex:none;border-radius:14px;background:#0b2e21 center/cover no-repeat;display:grid;place-items:center}
+.coin .img svg{width:54%;fill:rgba(242,181,68,.32)}
+.coin .bd{padding:6px 22px 22px}
+.coin .nm{font-family:Fraunces,Georgia,serif;font-weight:700;font-size:26px;line-height:1.15;word-break:break-word}
+.coin .tk{margin-top:2px;color:var(--gold);font-weight:700}
+.coin .for{margin-top:10px;color:var(--mute);font-size:14px}
+.coin .st{margin-top:12px;color:#e9dfcb;font-size:14px;max-height:6.2em;overflow:hidden}
+.coin .st:empty{display:none}
+.route{margin-top:16px;padding:12px 14px;border-radius:12px;background:rgba(0,0,0,.16);font-size:13px;color:var(--mute)}
+.route b{color:var(--cream)}
+.route code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px;color:var(--gold);word-break:break-all}
+.go{margin-top:8px;display:flex;flex-wrap:wrap;gap:10px}
+.say{margin-top:14px;min-height:22px;font-size:14px;color:var(--mute)}
+.say.er{color:var(--err)}
+.log{margin-top:12px;font-size:14px;line-height:1.7}
+.log .ok{color:var(--ok)}.log .er{color:var(--err)}
+.log a{color:var(--gold)}
+
+/* 04 funds */
+.funds{margin-top:40px;border-top:1px solid var(--line)}
+.frow{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1.1fr) minmax(0,.75fr) minmax(0,.75fr) 196px;gap:16px;align-items:center;padding:18px 0;border-bottom:1px solid var(--line)}
+.frow.h{padding:12px 0;font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--dim)}
+.frow .nm{font-family:Fraunces,Georgia,serif;font-weight:700;font-size:19px}
+.frow .num{font-weight:700;font-variant-numeric:tabular-nums}
+.frow .num small{display:block;font-weight:500;color:var(--dim);font-size:12px}
+.addr{display:inline-flex;align-items:center;gap:8px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px;color:var(--mute)}
+.addr button{min-height:30px;padding:0 10px;border-radius:999px;box-shadow:inset 0 0 0 1px var(--line2);font-family:Inter,sans-serif;font-size:12px;font-weight:700;color:var(--cream)}
+.lks{display:flex;gap:6px;justify-content:flex-end;flex-wrap:wrap}
+.lks a{min-height:34px;padding:0 12px;border-radius:999px;box-shadow:inset 0 0 0 1px var(--line2);font-size:13px;font-weight:700;text-decoration:none;display:inline-flex;align-items:center}
+.lks a:hover{background:rgba(246,236,216,.06)}
+.pend{color:var(--dim);font-size:14px}
+.chip{display:inline-flex;align-items:center;gap:8px;min-height:30px;padding:0 12px;border-radius:999px;box-shadow:inset 0 0 0 1px var(--line2);font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--mute)}
+.chip i{width:7px;height:7px;border-radius:50%;background:var(--dim)}
+.chip.live i{background:var(--ok);box-shadow:0 0 0 0 rgba(127,224,168,.6);animation:ping 1.8s infinite}
+@keyframes ping{70%{box-shadow:0 0 0 8px rgba(127,224,168,0)}100%{box-shadow:0 0 0 0 rgba(127,224,168,0)}}
+h3.sec{margin-top:56px;font-family:Fraunces,Georgia,serif;font-weight:700;font-size:26px}
+.dons{margin-top:18px;border-top:1px solid var(--line)}
+.drow{display:grid;grid-template-columns:120px minmax(0,1.2fr) 150px minmax(0,1fr);gap:16px;padding:16px 0;border-bottom:1px solid var(--line);font-size:15px;align-items:center}
+.drow a{color:var(--gold)}
+.empty{padding:22px 0;color:var(--mute);border-bottom:1px solid var(--line)}
+
+/* 05 how */
+.steps{margin-top:44px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:1px solid var(--line)}
+.step{padding:28px 26px 8px 0}
+.step+.step{padding-left:26px;border-left:1px solid var(--line)}
+.step .n{font-family:Fraunces,Georgia,serif;font-weight:900;font-size:44px;color:var(--gold);line-height:1}
+.step h3{margin-top:14px;font-size:19px;font-weight:700}
+.step p{margin-top:8px;color:var(--mute);font-size:15px}
+.check{margin-top:48px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.check div{padding:22px;border-radius:16px;background:var(--card);box-shadow:inset 0 0 0 1px var(--line)}
+.check b{display:flex;align-items:center;gap:10px;font-size:16px}
+.check b::before{content:"✓";display:grid;place-items:center;width:24px;height:24px;border-radius:50%;background:rgba(127,224,168,.16);color:var(--ok);font-size:13px}
+.check p{margin-top:8px;color:var(--mute);font-size:14px}
+
+/* 06 faq */
+.faq{margin-top:40px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 48px}
+details{border-top:1px solid var(--line)}
+summary{list-style:none;display:flex;justify-content:space-between;gap:16px;align-items:center;padding:22px 0;font-weight:700;font-size:18px;cursor:pointer}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";font-weight:500;font-size:26px;line-height:1;color:var(--gold);transition:transform .25s}
+details[open] summary::after{transform:rotate(45deg)}
+details p{padding:0 0 22px;color:var(--mute);max-width:62ch}
+details p a{color:var(--cream)}
+.suggest{margin-top:36px;display:flex;flex-wrap:wrap;align-items:center;gap:14px;color:var(--mute)}
+
+/* reveal */
+.rv{opacity:0;transform:translateY(16px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.8,.2,1)}
+.rv.vis{opacity:1;transform:none}
+.d1{transition-delay:.08s}.d2{transition-delay:.16s}.d3{transition-delay:.24s}
+
+@media (max-width:1020px){
+  .cases,.sancs{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .launch{grid-template-columns:1fr}
+  .prev{position:static}
+  .steps{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .step:nth-child(3){padding-left:0;border-left:0}
+  .check{grid-template-columns:1fr}
+  .faq{grid-template-columns:1fr}
+  .frow{grid-template-columns:1fr 1fr;row-gap:8px}
+  .frow.h{display:none}
+  .frow>:nth-child(2),.frow>:nth-child(5){grid-column:1 / -1}
+  .lks{justify-content:flex-start}
+  .drow{grid-template-columns:1fr 1fr}
+}
+@media (max-width:640px){
+  .wrap{padding:0 16px}
+  nav.top .in{grid-template-columns:0 auto 0}
+  section.band{padding:72px 0}
+  .cases,.sancs{grid-template-columns:1fr}
+  .steps{grid-template-columns:1fr}
+  .step,.step+.step{padding:22px 0 6px;border-left:0}
+  .step+.step{border-top:1px solid var(--line)}
+  .row2{grid-template-columns:1fr}
+  .lock svg{width:58px}
+  .cta .btn{flex:1 1 auto}
+  nav.top .links{gap:0;font-size:13.5px}
+  nav.top .links a{padding:18px 8px}
+  nav.top .links a[href="#how"]{display:none}
+  .addr button{min-height:40px;padding:0 14px}
+  .lks a{min-height:42px;padding:0 14px}
+  .drow a{display:inline-flex;align-items:center;min-height:40px}
+  .coin .img{width:96px;height:96px}
+}
+@media (prefers-reduced-motion:reduce){
+  *{scroll-behavior:auto!important}
+  .rv{opacity:1;transform:none;transition:none}
+}
+</style>
+</head>
+<body>
+<span class="sr" aria-live="polite" id="live"></span>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <symbol id="paw" viewBox="228 320 544 506"><path d="M500 560C575 560 640 610 672 668C704 726 708 780 662 806C628 826 596 812 572 806C548 800 530 812 500 812C470 812 452 800 428 806C404 812 372 826 338 806C292 780 296 726 328 668C360 610 425 560 500 560Z"/><ellipse cx="300" cy="522" rx="62" ry="82" transform="rotate(-20 300 522)"/><ellipse cx="420" cy="418" rx="66" ry="88" transform="rotate(-6 420 418)"/><ellipse cx="580" cy="418" rx="66" ry="88" transform="rotate(6 580 418)"/><ellipse cx="700" cy="522" rx="62" ry="82" transform="rotate(20 700 522)"/></symbol>
+</defs></svg>
+
+<nav class="top" aria-label="Sections">
+  <div class="in">
+    <span></span>
+    <div class="links">
+      <a href="#remembered">Remembered</a>
+      <a href="#sanctuaries">Sanctuaries</a>
+      <a href="#launch">Launch</a>
+      <a href="#funds">Funds</a>
+      <a href="#how">How</a>
+      <a href="#faq">FAQ</a>
+    </div>
+    <span></span>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <canvas id="trail" aria-hidden="true"></canvas>
+  <div class="wrap">
+    <div class="lock rv"><svg viewBox="0 0 544 506" aria-hidden="true"><use href="#paw"/></svg><h1 class="wm">zoopad</h1></div>
+    <p class="lede rv d1">launch a coin for any animal. <b>its fees go to a sanctuary.</b></p>
+    <div class="cta rv d2">
+      <a class="btn gold" href="#launch">Launch for an animal</a>
+      <a class="btn line" href="#remembered">Remember them</a>
+    </div>
+    <div class="proof rv d3">
+      <span><i></i>Every case links its sources</span>
+      <span><i></i>Every sanctuary links its own donation page</span>
+      <span><i></i>Every fee and donation is on Solscan</span>
+    </div>
+    <div class="carow" id="caRow" hidden></div>
+  </div>
+</header>
+
+<section class="band" id="remembered">
+  <div class="wrap">
+    <div class="eyebrow rv"><b>01</b> — Remembered</div>
+    <h2 class="rv d1">Killed in captivity. Never their fault.</h2>
+    <p class="sub rv d2">Every animal here died because of something people did or decided. Each case links its sources, so you can check every line yourself.</p>
+    <div class="chips rv" id="caseChips" role="group" aria-label="Filter cases"></div>
+    <div class="cases" id="cases"></div>
+  </div>
+</section>
+
+<section class="band alt" id="sanctuaries">
+  <div class="wrap">
+    <div class="eyebrow rv"><b>02</b> — Sanctuaries</div>
+    <h2 class="rv d1">Where the fees go.</h2>
+    <p class="sub rv d2">Each of these publicly accepts crypto donations on its own page, linked below. Coins launched for one of them pay into that sanctuary's public fund wallet.</p>
+    <div class="sancs" id="sancs"></div>
+    <p class="note">None of these organisations is partnered with ZOOPAD or has endorsed it. They are listed because they publicly accept crypto donations, and a donation is not an endorsement.</p>
+  </div>
+</section>
+
+<section class="band" id="launch">
+  <div class="wrap">
+    <div class="eyebrow rv"><b>03</b> — Launch</div>
+    <h2 class="rv d1">Launch a coin for an animal.</h2>
+    <p class="sub rv d2">The coin's creator is the sanctuary's fund wallet, written on-chain at launch, so every creator fee it earns goes there. You can see it on the coin's pump.fun page.</p>
+    <div class="launch">
+      <form id="lf" class="rv" autocomplete="off" novalidate>
+        <label class="fld"><span>Animal</span><select class="inp" id="fAnimal"></select></label>
+        <div class="row2">
+          <label class="fld"><span>Coin name <em id="cName">0/32</em></span><input class="inp" id="fName" maxlength="32" placeholder="Harambe"></label>
+          <label class="fld"><span>Ticker <em id="cTick">0/10</em></span><input class="inp" id="fTick" maxlength="10" placeholder="HARAMBE"></label>
+        </div>
+        <label class="fld"><span>Their story <em id="cStory">0/600</em></span><textarea class="inp" id="fStory" maxlength="600" placeholder="Who they were, and what happened."></textarea></label>
+        <div class="fld"><span>Image</span>
+          <label class="drop" id="drop"><span class="th" id="th"><svg viewBox="0 0 544 506" aria-hidden="true"><use href="#paw"/></svg></span><span><b id="dropT">Add an image</b><small>PNG, JPG, GIF or WEBP, up to 4 MB</small></span><input type="file" id="fImg" accept="image/png,image/jpeg,image/gif,image/webp" hidden></label>
+        </div>
+        <div class="row2">
+          <label class="fld"><span>Sanctuary</span><select class="inp" id="fSanc"></select></label>
+          <label class="fld"><span>First buy <em>optional, SOL</em></span><input class="inp" id="fBuy" type="number" min="0" max="10" step="0.01" inputmode="decimal" placeholder="0"></label>
+        </div>
+        <label class="fld"><span>X link <em>optional</em></span><input class="inp" id="fX" maxlength="200" placeholder="https://x.com/…"></label>
+      </form>
+      <div class="prev rv d2">
+        <div class="coin">
+          <div class="hd">
+            <div class="img" id="pImg"><svg viewBox="0 0 544 506" aria-hidden="true"><use href="#paw"/></svg></div>
+            <div><div class="nm" id="pName">Your coin</div><div class="tk" id="pTick">$TICKER</div><div class="for" id="pFor">for an animal</div></div>
+          </div>
+          <div class="bd">
+            <div class="st" id="pStory"></div>
+            <div class="route" id="pRoute"></div>
+          </div>
+        </div>
+        <div class="go"><button class="btn gold" type="button" id="goBtn">Connect wallet</button></div>
+        <p class="say" id="say"></p>
+        <div class="log" id="log"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band alt" id="funds">
+  <div class="wrap">
+    <div class="eyebrow rv"><b>04</b> — Funds <span class="st" id="fStatus"></span></div>
+    <h2 class="rv d1">Every SOL, in the open.</h2>
+    <p class="sub rv d2">One public wallet per sanctuary, read live from Solana on every visit: what's in it, and the creator fees still waiting in pump.fun's vaults.</p>
+    <div class="funds" id="fundRows"></div>
+    <h3 class="sec">Donations</h3>
+    <div class="dons" id="dons"><div class="empty">Loading…</div></div>
+  </div>
+</section>
+
+<section class="band" id="how">
+  <div class="wrap">
+    <div class="eyebrow rv"><b>05</b> — How it works</div>
+    <h2 class="rv d1">Four steps. All of them checkable.</h2>
+    <div class="steps">
+      <div class="step rv"><div class="n">1</div><h3>Pick an animal and a sanctuary</h3><p>Start from a case on this page or any animal you care about.</p></div>
+      <div class="step rv d1"><div class="n">2</div><h3>Launch on pump.fun</h3><p>The coin's creator is the sanctuary's fund wallet, set on-chain in the launch transaction you sign.</p></div>
+      <div class="step rv d2"><div class="n">3</div><h3>Trades pay the fund</h3><p>Every buy and sell pays pump.fun's creator fee into that wallet.</p></div>
+      <div class="step rv d3"><div class="n">4</div><h3>The fund donates</h3><p>Through the sanctuary's own crypto donation page, with the transaction and their receipt posted here.</p></div>
+    </div>
+    <div class="check">
+      <div class="rv"><b>The coin's creator</b><p>Open any ZOOPAD coin on pump.fun: the creator is the sanctuary's fund wallet listed in Funds.</p></div>
+      <div class="rv d1"><b>The money in and out</b><p>Each fund wallet links to Solscan, so every fee in and every transfer out is public.</p></div>
+      <div class="rv d2"><b>The donation itself</b><p>Each donation is listed with its transaction and the sanctuary's receipt.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="band alt" id="faq">
+  <div class="wrap">
+    <div class="eyebrow rv"><b>06</b> — FAQ</div>
+    <h2 class="rv d1">Straight answers.</h2>
+    <div class="faq">
+      <div>
+        <details><summary>Who holds the fund wallets?</summary><p>ZOOPAD does, one wallet per sanctuary. None of the sanctuaries publishes a fixed Solana address a coin could pay into, so the fees have to land somewhere before they are donated. That is why every wallet is public and every donation is posted with its receipt.</p></details>
+        <details><summary>Why not send fees straight to the sanctuary?</summary><p>Their crypto donation pages create a fresh deposit address for each donation. A coin needs one fixed address for its whole life, so the fund wallet holds the fees until each donation.</p></details>
+        <details><summary>What does ZOOPAD take?</summary><p>Nothing from the fees. Launching costs Solana network fees, plus your first buy if you add one.</p></details>
+        <details><summary>How are cases chosen?</summary><p>Only cases where an animal was killed and something people did or decided set it in motion, with sources you can open. No rumours, and nothing that hasn't been reported.</p></details>
+      </div>
+      <div>
+        <details><summary>Why isn't the Yorkshire Wildlife Park tiger here?</summary><p>Because it wasn't killed. On 10 October 2026 a man died after entering the tiger enclosure at Yorkshire Wildlife Park, and police said the tiger was uninjured (<a href="https://www.unilad.com/news/uk-news/yorkshire-wildlife-park-tiger-man-dies-876145-20261010" target="_blank" rel="noopener">UNILAD</a>, <a href="https://www.manxradio.com/news/uk-news/emergency-services-called-to-serious-incident-in-tiger-enclosure-at-uk-zoo/" target="_blank" rel="noopener">Manx Radio</a>).</p></details>
+        <details><summary>Are the sanctuaries involved?</summary><p>No. They are listed because they publicly accept crypto donations. None is partnered with ZOOPAD, and a donation is not an endorsement.</p></details>
+        <details><summary>What if a sanctuary doesn't take SOL?</summary><p>Its card says so. The fund converts the SOL into a coin the sanctuary's page accepts before donating, and the swap transaction is posted with the donation.</p></details>
+        <details><summary>Can I launch for an animal that isn't listed?</summary><p>Yes. Pick "Another animal" in the launch form and tell their story. The fees still go to the sanctuary you choose.</p></details>
+      </div>
+    </div>
+    <div class="suggest"><span>Know a case that belongs here? Send it with two sources.</span><button class="btn line sm" type="button" id="suggest">Suggest a case on X</button></div>
+  </div>
+</section>
+
+<script src="/js/web3.min.js" defer></script>
+<script>
+(() => {
+  'use strict';
+  const $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => [...r.querySelectorAll(s)];
+  const RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const live = (t) => { const el = $('#live'); el.textContent = ''; setTimeout(() => (el.textContent = t), 30); };
+  const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  const short = (a) => a.slice(0, 4) + '…' + a.slice(-4);
+  const PAW = '<svg viewBox="0 0 544 506" aria-hidden="true"><use href="#paw"/></svg>';
+  const getJSON = async (url, ms = 9000) => { const ac = new AbortController(); const t = setTimeout(() => ac.abort(), ms);
+    try { const r = await fetch(url, { signal: ac.signal, cache: 'no-store' }); if (!r.ok) throw new Error('HTTP ' + r.status); return await r.json(); } finally { clearTimeout(t); } };
+  const CFG = { funds: {}, ca: '', x: '' };
+
+  /* ---------------- sanctuaries (each line checked against the linked page) */
+  const SANCS = [
+    { id: 'bigcatrescue', name: 'Big Cat Rescue', tag: 'Big cats', mission: 'Works to end “the practice of breeding exotic cats for life in cages.”', site: 'https://bigcatrescue.org', give: 'https://bigcatrescue.org/donate-crypto', giveL: 'bigcatrescue.org/donate-crypto', sol: true, coins: 'SOL, BTC, ETH, USDC, DOGE and more' },
+    { id: 'turpentine', name: 'Turpentine Creek Wildlife Refuge', tag: 'Big cats', mission: 'Lifetime refuge for abused and neglected big cats, with emphasis on tigers, lions, leopards and cougars.', site: 'https://www.turpentinecreek.org', give: 'https://thegivingblock.com/donate/turpentine-creek-wildlife-refuge/', giveL: 'The Giving Block', ein: '71-0721742', sol: null, coins: 'Crypto through The Giving Block' },
+    { id: 'gorillafund', name: 'Dian Fossey Gorilla Fund', tag: 'Gorillas', mission: '“Helping people, saving gorillas.”', site: 'https://gorillafund.org', give: 'https://thegivingblock.com/donate/dian-fossey-gorilla-fund', giveL: 'The Giving Block', ein: '52-1118866', sol: null, coins: 'Crypto through The Giving Block' },
+    { id: 'bornfreeusa', name: 'Born Free USA', tag: 'Captive wildlife', mission: 'Works so animals in captivity or the wild are treated with compassion and respect.', site: 'https://www.bornfreeusa.org', give: 'https://www.bornfreeusa.org/support-us/crypto/', giveL: 'bornfreeusa.org/support-us/crypto', sol: false, coins: 'BTC, ETH, DOGE, LTC and more' },
+    { id: 'fourpaws', name: 'FOUR PAWS USA', tag: 'Animals in need', mission: 'Campaigns for companion, farm and wild animals kept in inappropriate conditions, and animals in disaster and conflict zones.', site: 'https://www.fourpawsusa.org', give: 'https://www.fourpawsusa.org/get-involved/donate-to-the-animal-crypto-fund', giveL: 'Animal Crypto Fund', sol: false, coins: 'BTC, ETH, LTC, BCH, ZEC, FIL, DOGE and tokens on Gemini' },
+  ];
+  const SBY = Object.fromEntries(SANCS.map((s) => [s.id, s]));
+
+  /* ---------------- cases (each linked to its sources) */
+  const CASES = [
+    { id: 'harambe', name: 'Harambe', sp: 'Gorilla', g: 'apes', place: 'Cincinnati Zoo, Ohio, USA', date: '28 May 2016', tick: 'HARAMBE', sanc: 'gorillafund',
+      sum: 'A 3-year-old boy got into the gorilla enclosure. With the child still inside, the zoo said tranquilizing the 17-year-old gorilla was not an option, and its Dangerous Animal Response Team shot him.',
+      src: [['KJZZ', 'https://kjzz.com/news/offbeat/harambe-was-shot-killed-3-years-ago-today-at-cincinnati-zoo'], ['Inquirer', 'https://newsinfo.inquirer.net/?p=788030']] },
+    { id: 'marius', name: 'Marius', sp: 'Giraffe', g: 'giraffes', place: 'Copenhagen Zoo, Denmark', date: 'February 2014', tick: 'MARIUS', sanc: 'bornfreeusa',
+      sum: 'A healthy 18-month-old giraffe. The zoo put him down, saying it was to avoid in-breeding, and dissected him in front of schoolchildren.',
+      src: [['Al Jazeera', 'https://www.aljazeera.com/news/2014/3/26/copenhagen-zoo-kills-four-healthy-lions'], ['Channel 4', 'https://channel4.com/news/copenhagen-zoo-kills-four-lions-marius-the-giraffe']] },
+    { id: 'cphlions', name: 'Four lions', sp: 'Lions', g: 'bigcats', place: 'Copenhagen Zoo, Denmark', date: '24 March 2014', tick: 'FOURLIONS', sanc: 'turpentine',
+      sum: 'Weeks after Marius, the same zoo killed four healthy lions, a 16-year-old male, a lioness of about the same age and two young females born in 2012, to make way for a new male.',
+      src: [['Al Jazeera', 'https://www.aljazeera.com/news/2014/3/26/copenhagen-zoo-kills-four-healthy-lions'], ['CBC', 'https://www.cbc.ca/lite/story/1.2586090']] },
+    { id: 'tatiana', name: 'Tatiana', sp: 'Siberian tiger', g: 'bigcats', place: 'San Francisco Zoo, California, USA', date: '25 December 2007', tick: 'TATIANA', sanc: 'bigcatrescue',
+      sum: 'She got over a moat wall later measured at 12.5 feet, below the 16 ft 4 in the zoo association recommends, killed a visitor and injured two others, and was shot by police. Witnesses said the young men had taunted her.',
+      src: [['Wikipedia', 'https://en.wikipedia.org/wiki/San_Francisco_Zoo_tiger_attacks'], ['ABC7', 'https://abc7news.com/post/san-francisco-zoo-attack-sf-tiger-christmas-day/9072741/']] },
+    { id: 'santiago', name: 'Two lions', sp: 'Lions', g: 'bigcats', place: 'Metropolitan Zoo, Santiago, Chile', date: '21 May 2016', tick: 'SANTIAGO', sanc: 'turpentine',
+      sum: 'A 20-year-old man broke into the lion enclosure, undressed and jumped in, in an apparent suicide attempt. Staff killed a male and a female lion to save him.',
+      src: [['CBS', 'https://www.cbsnews.com/pittsburgh/news/zoo-lions-killed-after-suicidal-naked-man-jumps-in-enclosure'], ['NBC News', 'https://www.nbcnews.com/news/world/2-lions-killed-after-naked-man-enters-zoo-enclosure-n578561']] },
+    { id: 'eko', name: 'Eko', sp: 'Malayan tiger', g: 'bigcats', place: 'Naples Zoo, Florida, USA', date: '29 December 2021', tick: 'EKO', sanc: 'bigcatrescue',
+      sum: 'After closing, a cleaner from a contractor went into an unauthorized area, crossed a barrier and put his arm through the fence. The 8-year-old tiger grabbed it, and a deputy shot him.',
+      src: [['ABC7', 'https://abc7ny.com/post/tiger-attack-attacks-worker-naples-zoo-florida/11404651/'], ['Local 10', 'https://local10.com/news/local/2021/12/30/tiger-attacks-worker-who-put-his-arm-through-fence-at-naples-zoo-deputies-say']] },
+    { id: 'zanesville', name: 'The Zanesville 48', sp: 'Tigers, lions, bears', g: 'many', place: 'Private animal farm, Zanesville, Ohio, USA', date: '18–19 October 2011', tick: 'ZANESVILLE', sanc: 'bornfreeusa',
+      sum: 'The owner released 56 animals from their cages and took his own life. Officers were ordered to shoot rather than tranquilize, and 48 died, including 18 Bengal tigers and 17 lions.',
+      src: [['AP / Bangor Daily News', 'https://www.bangordailynews.com/2011/10/19/news/lions-and-tigers-shot-in-ohio-owner-freed-them/'], ['AP / Washington Times', 'https://www.washingtontimes.com/news/2011/oct/19/nearly-50-animals-set-loose-killed/']] },
+  ];
+  const GROUPS = [['all', 'All'], ['bigcats', 'Big cats'], ['apes', 'Apes'], ['giraffes', 'Giraffes'], ['many', 'Many animals']];
+
+  /* ---------------- reveal + active nav */
+  const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('vis'); io.unobserve(e.target); } }), { rootMargin: '0px 0px -8% 0px' });
+  const watch = () => $$('.rv:not(.vis)').forEach((el) => io.observe(el));
+  setTimeout(() => $$('.rv').forEach((el) => el.classList.add('vis')), 2600);
+  const links = $$('nav.top .links a');
+  const so = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) links.forEach((a) => a.classList.toggle('on', a.getAttribute('href') === '#' + e.target.id)); }), { rootMargin: '-45% 0px -50% 0px' });
+  $$('section.band').forEach((s) => so.observe(s));
+  const flash = (el) => { el.classList.remove('flash'); void el.offsetWidth; el.classList.add('flash'); };
+  const goTo = (id, then) => { const el = document.getElementById(id); if (!el) return; el.scrollIntoView({ behavior: RM ? 'auto' : 'smooth', block: el.tagName === 'SECTION' ? 'start' : 'center' }); if (then) setTimeout(() => then(el), RM ? 0 : 450); };
+
+  /* ---------------- hero: a slow trail of paw prints walking across */
+  (() => {
+    const c = $('#trail'); if (!c || RM) return; const g = c.getContext('2d');
+    const P = new Path2D('M500 560C575 560 640 610 672 668C704 726 708 780 662 806C628 826 596 812 572 806C548 800 530 812 500 812C470 812 452 800 428 806C404 812 372 826 338 806C292 780 296 726 328 668C360 610 425 560 500 560Z');
+    [[300, 522, 62, 82, -20], [420, 418, 66, 88, -6], [580, 418, 66, 88, 6], [700, 522, 62, 82, 20]].forEach(([x, y, rx, ry, r]) => { const t = new Path2D(); t.ellipse(x, y, rx, ry, r * Math.PI / 180, 0, Math.PI * 2); P.addPath(t); });
+    let W = 0, H = 0, prints = [], step = 0, last = 0;
+    const size = () => { const r = c.getBoundingClientRect(), d = Math.min(1.5, devicePixelRatio || 1); W = r.width; H = r.height; c.width = W * d; c.height = H * d; g.setTransform(d, 0, 0, d, 0, 0); };
+    size(); addEventListener('resize', size);
+    const at = (t) => ({ x: -60 + t * (W + 120), y: H * (0.92 - 0.84 * t) + Math.sin(t * Math.PI * 1.7) * H * 0.07 });
+    const tick = (now) => {
+      requestAnimationFrame(tick); if (document.hidden) return;
+      if (now - last > 520) { last = now; const n = 30, t = (step % n) / n, a = at(t), b = at(t + 0.004); const ang = Math.atan2(b.y - a.y, b.x - a.x), side = step % 2 ? 1 : -1;
+        prints.push({ x: a.x - Math.sin(ang) * 22 * side, y: a.y + Math.cos(ang) * 22 * side, ang: ang + Math.PI / 2, born: now }); step++; if (prints.length > 40) prints.shift(); }
+      g.clearRect(0, 0, W, H);
+      for (const p of prints) { const age = (now - p.born) / 1000, al = Math.max(0, Math.min(1, age / 0.4)) * Math.max(0, 1 - age / 11);
+        if (al <= 0) continue; g.save(); g.globalAlpha = al * 0.09; g.translate(p.x, p.y); g.rotate(p.ang); const k = 46 / 506; g.scale(k, k); g.translate(-500, -573); g.fillStyle = '#F6ECD8'; g.fill(P); g.restore(); }
+    };
+    requestAnimationFrame(tick);
+  })();
+
+  /* ---------------- 01 cases */
+  const caseHTML = (c) => `<article class="case rv" id="case-${c.id}" data-g="${c.g}">
+      <svg class="pawm" viewBox="0 0 544 506" aria-hidden="true"><use href="#paw"/></svg>
+      <div class="top"><span class="sp">${esc(c.sp)}</span><span class="dt">${esc(c.date)}</span></div>
+      <h3>${esc(c.name)}</h3>
+      <div class="pl">${esc(c.place)}</div>
+      <p class="sum">${esc(c.sum)}</p>
+      <div class="src">Sources: ${c.src.map(([l, u]) => `<a href="${esc(u)}" target="_blank" rel="noopener">${esc(l)} ↗</a>`).join('')}</div>
+      <div class="acts"><button class="btn gold sm" type="button" data-launch="${c.id}">Launch in their name</button><button class="btn line sm" type="button" data-help="${c.sanc}">Help their kind</button></div>
+    </article>`;
+  $('#cases').innerHTML = CASES.map(caseHTML).join('');
+  $('#caseChips').innerHTML = GROUPS.map(([k, l], i) => `<button type="button" data-g="${k}" class="${i ? '' : 'on'}" aria-pressed="${!i}">${l}</button>`).join('');
+  $('#caseChips').addEventListener('click', (e) => { const b = e.target.closest('button'); if (!b) return; const g = b.dataset.g;
+    $$('#caseChips button').forEach((x) => { x.classList.toggle('on', x === b); x.setAttribute('aria-pressed', x === b); });
+    $$('.case').forEach((el) => { el.hidden = g !== 'all' && el.dataset.g !== g; }); });
+  $('#cases').addEventListener('click', (e) => {
+    const l = e.target.closest('[data-launch]'), h = e.target.closest('[data-help]');
+    if (l) { prefill(l.dataset.launch); goTo('launch'); }
+    if (h) goTo('sanc-' + h.dataset.help, flash);
+  });
+
+  /* ---------------- 02 sanctuaries */
+  const sancHTML = (s) => {
+    const f = CFG.funds[s.id];
+    const sol = s.sol === true ? '<dd class="yes">Yes</dd>' : s.sol === false ? '<dd class="no">Not listed, the fund converts first</dd>' : '<dd class="no">Not confirmed, the fund converts if needed</dd>';
+    return `<article class="sanc rv" id="sanc-${s.id}">
+      <span class="tag">${esc(s.tag)}</span>
+      <h3>${esc(s.name)}</h3>
+      <p class="mis">${esc(s.mission)}</p>
+      <dl class="facts">
+        <div><dt>Crypto donations</dt><dd><a href="${esc(s.give)}" target="_blank" rel="noopener">${esc(s.giveL)} ↗</a></dd></div>
+        <div><dt>Accepts SOL</dt>${sol}</div>
+        ${s.ein ? `<div><dt>US charity number</dt><dd><a href="https://projects.propublica.org/nonprofits/organizations/${s.ein.replace('-', '')}" target="_blank" rel="noopener">EIN ${esc(s.ein)} ↗</a></dd></div>` : ''}
+        <div><dt>ZOOPAD fund wallet</dt><dd>${f ? `<a href="https://solscan.io/account/${esc(f)}" target="_blank" rel="noopener">${esc(short(f))} ↗</a>` : '<span class="no">Not published yet</span>'}</dd></div>
+      </dl>
+      <div class="acts"><button class="btn gold sm" type="button" data-for="${s.id}">Launch for ${esc(s.name.split(' ')[0] === 'Dian' ? 'gorillas' : s.name.split(' ').slice(0, 2).join(' '))}</button><a class="btn line sm" href="${esc(s.give)}" target="_blank" rel="noopener">Donate directly ↗</a></div>
+    </article>`;
+  };
+  const renderSancs = () => { $('#sancs').innerHTML = SANCS.map(sancHTML).join(''); watch(); };
+  $('#sancs').addEventListener('click', (e) => { const b = e.target.closest('[data-for]'); if (!b) return; $('#fSanc').value = b.dataset.for; update(); goTo('launch'); });
+
+  /* ---------------- 03 launch form */
+  const F = { animal: $('#fAnimal'), name: $('#fName'), tick: $('#fTick'), story: $('#fStory'), img: $('#fImg'), sanc: $('#fSanc'), buy: $('#fBuy'), x: $('#fX') };
+  F.animal.innerHTML = '<option value="">Choose an animal…</option>' + CASES.map((c) => `<option value="${c.id}">${esc(c.name)} · ${esc(c.sp)}</option>`).join('') + '<option value="other">Another animal</option>';
+  const fillSanc = () => { const v = F.sanc.value; F.sanc.innerHTML = SANCS.map((s) => `<option value="${s.id}">${esc(s.name)}${CFG.funds[s.id] ? '' : ' · fund not published'}</option>`).join(''); if (v) F.sanc.value = v; };
+  fillSanc();
+  let IMG = null;
+  const prefill = (id) => { const c = CASES.find((x) => x.id === id); if (!c) return;
+    F.animal.value = c.id; F.name.value = c.name.slice(0, 32); F.tick.value = c.tick; F.story.value = (c.sum + ' Fees from this coin go to a sanctuary through ZOOPAD.').slice(0, 600); F.sanc.value = c.sanc; update(); };
+  F.animal.addEventListener('change', () => { if (F.animal.value && F.animal.value !== 'other') prefill(F.animal.value); else update(); });
+  const setImg = (file) => {
+    if (!file) return; const say = $('#say');
+    if (!/^image\/(png|jpe?g|gif|webp)$/.test(file.type)) { say.textContent = 'That file is not a PNG, JPG, GIF or WEBP.'; say.className = 'say er'; return; }
+    if (file.size > 4e6) { say.textContent = 'That image is over 4 MB.'; say.className = 'say er'; return; }
+    const rd = new FileReader(); rd.onload = () => { IMG = rd.result; $('#th').style.backgroundImage = `url(${IMG})`; $('#th').innerHTML = ''; $('#pImg').style.backgroundImage = `url(${IMG})`; $('#pImg').innerHTML = ''; $('#dropT').textContent = file.name.slice(0, 40); say.textContent = ''; say.className = 'say'; update(); };
+    rd.readAsDataURL(file);
+  };
+  F.img.addEventListener('change', () => setImg(F.img.files && F.img.files[0]));
+  const drop = $('#drop');
+  ['dragenter', 'dragover'].forEach((ev) => drop.addEventListener(ev, (e) => { e.preventDefault(); drop.classList.add('over'); }));
+  ['dragleave', 'drop'].forEach((ev) => drop.addEventListener(ev, (e) => { e.preventDefault(); drop.classList.remove('over'); }));
+  drop.addEventListener('drop', (e) => setImg(e.dataTransfer.files && e.dataTransfer.files[0]));
+  [F.name, F.tick, F.story, F.buy, F.x].forEach((el) => el.addEventListener('input', () => update()));
+  F.sanc.addEventListener('change', () => update());
+  F.tick.addEventListener('input', () => { const v = F.tick.value.toUpperCase().replace(/[^A-Z0-9]/g, ''); if (v !== F.tick.value) F.tick.value = v; });
+
+  let PK = null, WAL = null, busy = false;
+  const wallets = () => [['Phantom', window.phantom && window.phantom.solana], ['Solflare', window.solflare], ['Backpack', (window.backpack && window.backpack.solana) || window.backpack]].filter((x) => x[1]);
+  const update = () => {
+    $('#cName').textContent = F.name.value.length + '/32'; $('#cTick').textContent = F.tick.value.length + '/10'; $('#cStory').textContent = F.story.value.length + '/600';
+    const c = CASES.find((x) => x.id === F.animal.value), s = SBY[F.sanc.value] || SANCS[0], fund = CFG.funds[s.id];
+    $('#pName').textContent = F.name.value.trim() || 'Your coin';
+    $('#pTick').textContent = '$' + (F.tick.value.trim() || 'TICKER');
+    $('#pFor').textContent = c ? 'for ' + c.name + ' · ' + c.sp + ', ' + c.date : F.animal.value === 'other' ? 'for an animal you care about' : 'for an animal';
+    $('#pStory').textContent = F.story.value.trim();
+    $('#pRoute').innerHTML = fund ? `Creator fees → <b>${esc(s.name)}</b> fund<br><code>${esc(fund)}</code>` : `Creator fees → <b>${esc(s.name)}</b> fund. <span style="color:var(--dim)">This fund wallet is not published yet, so launches for it are closed.</span>`;
+    const btn = $('#goBtn'); if (busy) return;
+    const ready = F.name.value.trim() && F.tick.value.trim() && IMG;
+    if (!fund) { btn.textContent = 'Opens when the fund is published'; btn.disabled = true; return; }
+    if (!PK) { btn.textContent = 'Connect wallet'; btn.disabled = false; return; }
+    btn.disabled = !ready; btn.textContent = ready ? 'Launch $' + F.tick.value.trim() : 'Add a name, a ticker and an image';
+  };
+  const log = (t, cls) => { const d = document.createElement('div'); if (cls) d.className = cls; d.innerHTML = t; $('#log').appendChild(d); };
+  const connect = async () => {
+    const ws = wallets(); const say = $('#say');
+    if (!ws.length) { say.innerHTML = 'No Solana wallet found in this browser. Install <a href="https://phantom.com" target="_blank" rel="noopener" style="color:var(--gold)">Phantom</a>, Solflare or Backpack.'; say.className = 'say er'; return; }
+    try { WAL = ws[0][1]; const r = await WAL.connect(); PK = (r && r.publicKey) || WAL.publicKey; say.textContent = ws[0][0] + ' connected: ' + short(PK.toString()); say.className = 'say'; live('Wallet connected'); }
+    catch (e) { say.textContent = 'Connection cancelled.'; say.className = 'say er'; }
+    update();
+  };
+  $('#goBtn').addEventListener('click', async () => {
+    if (!PK) return connect();
+    const s = SBY[F.sanc.value]; if (!s || !CFG.funds[s.id] || busy) return;
+    if (!window.solanaWeb3) { $('#say').textContent = 'The Solana library did not load. Refresh and try again.'; $('#say').className = 'say er'; return; }
+    busy = true; const btn = $('#goBtn'); btn.disabled = true; btn.textContent = 'Launching…'; $('#log').innerHTML = '';
+    try {
+      log('1/4 uploading the image and metadata to pump.fun…');
+      const m = await (await fetch('/api/ipfs', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ image: IMG, name: F.name.value.trim(), symbol: F.tick.value.trim(), description: F.story.value.trim(), twitter: F.x.value.trim() }) })).json();
+      if (!m.uri) throw new Error(m.error || 'metadata upload failed');
+      log('✓ metadata saved', 'ok');
+      const kp = solanaWeb3.Keypair.generate();
+      log('2/4 building the pump.fun transaction…');
+      const r = await (await fetch('/api/launch', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ user: PK.toString(), mint: kp.publicKey.toBase58(), name: F.name.value.trim(), symbol: F.tick.value.trim(), uri: m.uri, charity: s.id, buy: Number(F.buy.value) || 0 }) })).json();
+      if (!r.tx) throw new Error(r.error || 'could not build the transaction');
+      log('✓ creator set to the ' + esc(s.name) + ' fund (' + short(r.creator) + ')', 'ok');
+      const tx = solanaWeb3.VersionedTransaction.deserialize(Uint8Array.from(atob(r.tx), (ch) => ch.charCodeAt(0))); tx.sign([kp]);
+      log('3/4 approve it in your wallet…');
+      const res = await WAL.signAndSendTransaction(tx); const sig = res.signature || res;
+      log('4/4 sent · <a href="https://solscan.io/tx/' + sig + '" target="_blank" rel="noopener">view on Solscan ↗</a>', 'ok');
+      const mint = kp.publicKey.toBase58();
+      log('✓ $' + esc(F.tick.value.trim()) + ' is live · <a href="https://pump.fun/coin/' + mint + '" target="_blank" rel="noopener">open on pump.fun ↗</a>', 'ok');
+      live('Launched');
+    } catch (e) { log('✕ ' + esc(e.message || e), 'er'); }
+    finally { busy = false; update(); }
+  });
+
+  /* ---------------- 04 funds + donations */
+  const fmt = (n, d = 3) => n == null ? '—' : n.toLocaleString('en-US', { minimumFractionDigits: d, maximumFractionDigits: d });
+  const renderFunds = (data) => {
+    const rows = SANCS.map((s) => {
+      const f = CFG.funds[s.id], d = data && data.funds && data.funds[s.id];
+      if (!f) return `<div class="frow"><span class="nm">${esc(s.name)}</span><span class="pend">Fund wallet not published yet</span><span></span><span></span><span></span></div>`;
+      const usd = (v) => (v != null && data.solUsd ? '≈ $' + (v * data.solUsd).toLocaleString('en-US', { maximumFractionDigits: 2 }) : '');
+      return `<div class="frow"><span class="nm">${esc(s.name)}</span>
+        <span class="addr">${esc(short(f))}<button type="button" data-copy="${esc(f)}">Copy</button></span>
+        <span class="num">${d ? (d.sol == null ? '—' : fmt(d.sol) + ' SOL') : '…'}<small>${d ? usd(d.sol) || 'in the wallet' : 'in the wallet'}</small></span>
+        <span class="num">${d ? (d.waiting == null ? '—' : fmt(d.waiting, 4) + ' SOL') : '…'}<small>fees waiting</small></span>
+        <span class="lks"><a href="https://solscan.io/account/${esc(f)}" target="_blank" rel="noopener">Solscan ↗</a><a href="https://pump.fun/profile/${esc(f)}?tab=coins" target="_blank" rel="noopener">Its coins ↗</a></span></div>`;
+    }).join('');
+    $('#fundRows').innerHTML = `<div class="frow h"><span>Sanctuary</span><span>Fund wallet</span><span>In the wallet</span><span>Fees waiting</span><span></span></div>` + rows;
+    const n = Object.keys(CFG.funds).length;
+    $('#fStatus').innerHTML = n ? `<span class="chip live"><i></i>${n} of ${SANCS.length} published</span>` : `<span class="chip"><i></i>None published yet</span>`;
+  };
+  $('#fundRows').addEventListener('click', async (e) => { const b = e.target.closest('[data-copy]'); if (!b) return;
+    try { await navigator.clipboard.writeText(b.dataset.copy); } catch (err) {} const o = b.textContent; b.textContent = 'Copied'; live('Address copied'); setTimeout(() => (b.textContent = o), 1300); });
+  const loadDonations = async () => {
+    const box = $('#dons');
+    try {
+      const rows = await getJSON('/donations.json?t=' + Date.now(), 8000);
+      if (!Array.isArray(rows) || !rows.length) { box.innerHTML = '<div class="empty">No donations yet. Each one will be listed here with its transaction and the sanctuary’s receipt.</div>'; return; }
+      const link = (u, t) => (u && /^https:\/\//.test(u) ? `<a href="${esc(u)}" target="_blank" rel="noopener">${t}</a>` : '<span style="color:var(--dim)">—</span>');
+      box.innerHTML = rows.slice().sort((a, b) => String(b.date).localeCompare(String(a.date))).map((r) => `<div class="drow"><span>${esc(r.date || '')}</span><b>${esc((SBY[r.charity] || {}).name || r.charity || '')}</b><span>${esc(String(r.amount || ''))} ${esc(r.asset || '')}</span><span>${link(r.tx, 'transaction ↗')} · ${link(r.receipt, 'receipt ↗')}</span></div>`).join('');
+    } catch (e) { box.innerHTML = '<div class="empty">The donations list did not load. Refresh to try again.</div>'; }
+  };
+
+  /* ---------------- config, then everything that depends on it */
+  const renderCA = () => {
+    const row = $('#caRow'), parts = [];
+    if (CFG.ca) parts.push(`<span class="ca">$ZOOPAD ${esc(short(CFG.ca))}<button type="button" data-ca="${esc(CFG.ca)}">Copy CA</button></span><a class="btn line sm" href="https://pump.fun/coin/${esc(CFG.ca)}" target="_blank" rel="noopener">Buy ↗</a><a class="btn line sm" href="https://dexscreener.com/solana/${esc(CFG.ca)}" target="_blank" rel="noopener">Chart ↗</a>`);
+    if (CFG.x) parts.push(`<a class="btn line sm" href="https://x.com/${esc(CFG.x)}" target="_blank" rel="noopener">𝕏 @${esc(CFG.x)}</a>`);
+    row.innerHTML = parts.join(''); row.hidden = !parts.length;
+  };
+  $('#caRow').addEventListener('click', async (e) => { const b = e.target.closest('[data-ca]'); if (!b) return;
+    try { await navigator.clipboard.writeText(b.dataset.ca); } catch (err) {} b.textContent = 'Copied'; live('Contract address copied'); setTimeout(() => (b.textContent = 'Copy CA'), 1300); });
+  const boot = async () => {
+    try { Object.assign(CFG, await getJSON('/api/config', 8000)); } catch (e) {}
+    renderCA(); renderSancs(); fillSanc(); update(); renderFunds(null);
+    if (Object.keys(CFG.funds).length) { try { renderFunds(await getJSON('/api/funds', 20000)); } catch (e) { $('#fStatus').innerHTML = '<span class="chip"><i></i>Solana read failed</span>'; } }
+  };
+  renderSancs(); update(); renderFunds(null); loadDonations(); boot(); watch();
+
+  $('#suggest').addEventListener('click', () => {
+    const text = (CFG.x ? '@' + CFG.x + ' ' : '') + 'a case for ZOOPAD: [animal, zoo, date]\nsources: [link 1] [link 2]';
+    window.open('https://x.com/intent/tweet?text=' + encodeURIComponent(text), '_blank', 'noopener');
+  });
+})();
+</script>
+</body>
+</html>
